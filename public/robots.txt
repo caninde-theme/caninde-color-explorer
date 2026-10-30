@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://caninde.duar.ch/sitemap.xml
