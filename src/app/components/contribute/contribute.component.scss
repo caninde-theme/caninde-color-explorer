@@ -1,0 +1,133 @@
+
+.contribute-section {
+  padding: clamp(4rem, 8vw, 7rem) 1.5rem;
+  background: #053001;
+  color: #fff;
+}
+
+.contribute-container {
+  width: min(1100px, 100%);
+  margin-inline: auto;
+}
+
+.eyebrow {
+  color: #b9d59c;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.contribute-content {
+  max-width: 760px;
+  margin-bottom: 3.5rem;
+}
+
+.contribute-content h2 {
+  margin: 1rem 0;
+  font-size: clamp(2.3rem, 6vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+
+.contribute-content h2 span {
+  display: block;
+  color: #f2b01e;
+}
+
+.contribute-content p {
+  max-width: 680px;
+  color: #d5e1d0;
+  line-height: 1.75;
+}
+
+.contribute-lead {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff !important;
+}
+
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 0.9rem 1.3rem;
+  border-radius: 8px;
+  background: #f2b01e;
+  color: #172510;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.primary-button:hover {
+  background: #ffd05d;
+  transform: translateY(-2px);
+}
+
+.primary-button:focus-visible,
+.contribution-options a:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+}
+
+.contribution-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 12px;
+  background: rgb(255 255 255 / 18%);
+}
+
+.contribution-options article {
+  padding: 2rem;
+  background: #073b03;
+}
+
+.option-number {
+  color: #f2b01e;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.contribution-options h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+}
+
+.contribution-options p {
+  color: #d5e1d0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.contribution-options a {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #f2c85d;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.contribution-options a:hover {
+  text-decoration: underline;
+}
+
+.contribute-note {
+  margin-top: 2rem;
+  color: #b9cbb3;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 650px) {
+  .contribution-options {
+    grid-template-columns: 1fr;
+  }
+
+  .contribution-options article {
+    padding: 1.5rem;
+  }
+}

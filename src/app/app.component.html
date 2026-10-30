@@ -2,7 +2,7 @@
 
 <main class="explorer">
   @if (loading) {
-    <p class="status-message">Carregando imagem e regiões…</p>
+    <p class="status-message">Loading image and regions...</p>
   }
 
   @if (error) {
@@ -19,9 +19,9 @@
         (click)="toggleExplorationMode()"
       >
         @if (explorationMode) {
-          <span>✓ Concluir exploração</span>
+          <span>✓ Finish exploring</span>
         } @else {
-          <span>⌖ Explorar cores</span>
+          <span>⌖ Explore colors</span>
         }
       </button>
 
@@ -41,26 +41,14 @@
         />
       }
     </section>
-    <footer id="photo-credit" class="photo-credit">
-      Foto de
-      <a
-        href="https://unsplash.com/pt-br/@davidclode?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        David Clode
-      </a>
-      na
-      <a
-        href="https://unsplash.com/pt-br/fotografias/um-par-de-passaros-coloridos-Mkv2aKWHx00?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Unsplash </a
-      >.
-    </footer>
   }
+
+  <app-about id="about" />
+
+  <app-contribute id="contribute" />
 </main>
+
+<app-footer />
 
 <div class="orientation-prompt" aria-live="polite">
   <div class="orientation-prompt__content">
@@ -68,11 +56,11 @@
       <span>↻</span>
     </div>
 
-    <h2>Gire seu dispositivo</h2>
+    <h2>Rotate your device</h2>
 
     <p>
-      Para explorar melhor os detalhes da imagem, utilize o aparelho na
-      horizontal.
+      To explore the image details better, use your device in landscape
+      orientation.
     </p>
   </div>
 </div>

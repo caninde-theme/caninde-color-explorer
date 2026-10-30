@@ -12,6 +12,9 @@ import { ColorDataService, ColorContent } from './services/color-data.service';
 
 import { ColorTooltipComponent } from './components/color-tooltip/color-tooltip.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { AboutComponent } from './components/about/about.component';
+import { ContributeComponent } from './components/contribute/contribute.component';
 
 interface TackPoint {
   x: number;
@@ -36,7 +39,13 @@ interface TackDocument {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ColorTooltipComponent, NavbarComponent],
+  imports: [
+    ColorTooltipComponent,
+    NavbarComponent,
+    FooterComponent,
+    AboutComponent,
+    ContributeComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
