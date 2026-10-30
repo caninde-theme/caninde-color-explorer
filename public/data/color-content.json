@@ -1,0 +1,27 @@
+{
+    "regionContent": {
+        "bico_white": "light",
+        "bico_black": "dark",
+        "asa_amarela": "yellow"
+    },
+    "contents": {
+        "light": {
+            "title": "Bico branco",
+            "description": "Região associada à cor clara do tema.",
+            "token": "A definir no Canindé",
+            "color": "#F5F5F5"
+        },
+        "dark": {
+            "title": "Bico preto",
+            "description": "Região associada à cor escura do tema.",
+            "token": "A definir no Canindé",
+            "color": "#222222"
+        },
+        "yellow": {
+            "title": "Asa amarela",
+            "description": "Região associada à cor amarela do tema.",
+            "token": "A definir no Canindé",
+            "color": "#F5C542"
+        }
+    }
+}

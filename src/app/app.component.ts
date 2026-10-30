@@ -8,6 +8,11 @@ import {
 
 import Konva from 'konva';
 
+import { ColorDataService, ColorContent } from './services/color-data.service';
+
+import { ColorTooltipComponent } from './components/color-tooltip/color-tooltip.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+
 interface TackPoint {
   x: number;
   y: number;
@@ -28,15 +33,10 @@ interface TackDocument {
   shapes: TackShape[];
 }
 
-interface RegionInfo {
-  title: string;
-  token: string;
-  description: string;
-}
-
 @Component({
   selector: 'app-root',
   standalone: true,
+  imports: [ColorTooltipComponent, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -58,28 +58,11 @@ export class AppComponent implements OnDestroy {
   loading = true;
   error = '';
 
-  readonly details: Record<string, RegionInfo> = {
-    bico_white: {
-      title: 'Bico claro',
-      token: 'A definir no Canindé',
-      description:
-        'Região clara do bico da arara. Aqui serão exibidos os tokens e exemplos de aplicação.',
-    },
+  pointerX = 0;
+  pointerY = 0;
 
-    bico_black: {
-      title: 'Bico escuro',
-      token: 'A definir no Canindé',
-      description:
-        'Região escura do bico da arara. Aqui serão exibidos os tokens e exemplos de aplicação.',
-    },
-
-    asa_amarela: {
-      title: 'Penas amarelas',
-      token: 'A definir no Canindé',
-      description:
-        'Região amarela da plumagem. Aqui serão exibidos os tokens e exemplos de aplicação.',
-    },
-  };
+  private isTouching = false;
+  private touchRegionId: string | null = null;
 
   @ViewChild('stageHost')
   set stageHostRef(ref: ElementRef<HTMLDivElement> | undefined) {
@@ -99,7 +82,7 @@ export class AppComponent implements OnDestroy {
     });
   }
 
-  constructor() {
+  constructor(private readonly colorDataService: ColorDataService) {
     void this.loadRegions();
   }
 
@@ -111,24 +94,35 @@ export class AppComponent implements OnDestroy {
     return this.regions.find((shape) => shape.label === this.activeId);
   }
 
-  get activeDetails(): RegionInfo | undefined {
-    return this.activeId ? this.details[this.activeId] : undefined;
+  get activeDetails(): ColorContent | undefined {
+    return this.activeId
+      ? this.colorDataService.getContentForRegion(this.activeId)
+      : undefined;
   }
 
-  get modalPosition(): { left: number; top: number } {
-    const shape = this.activeShape;
+  get tooltipPosition(): { left: number; top: number } {
+    const stageWidth = this.stage?.width() ?? 0;
+    const stageHeight = this.stage?.height() ?? 0;
 
-    if (!shape?.points.length) {
-      return { left: 50, top: 50 };
+    const tooltipWidth = Math.min(320, stageWidth - 16);
+    const tooltipHeight = 170;
+    const gap = 18;
+    const margin = 8;
+
+    let left = this.pointerX + gap;
+    let top = this.pointerY + gap;
+
+    if (left + tooltipWidth > stageWidth - margin) {
+      left = this.pointerX - tooltipWidth - gap;
     }
 
-    const xs = shape.points.map((point) => point.x);
-    const ys = shape.points.map((point) => point.y);
+    if (top + tooltipHeight > stageHeight - margin) {
+      top = this.pointerY - tooltipHeight - gap;
+    }
 
     return {
-      left: ((Math.min(...xs) + Math.max(...xs)) / 2) * 100,
-
-      top: Math.min(88, Math.max(4, Math.min(...ys) * 100)),
+      left: Math.max(margin, left),
+      top: Math.max(margin, top),
     };
   }
 
@@ -156,6 +150,9 @@ export class AppComponent implements OnDestroy {
       if (this.regions.length === 0) {
         throw new Error('Nenhum polígono fechado foi encontrado no JSON.');
       }
+
+      // Carrega os conteúdos antes de liberar a interação.
+      await this.colorDataService.load();
 
       this.loading = false;
     } catch (error) {
@@ -201,17 +198,60 @@ export class AppComponent implements OnDestroy {
         this.stage.size({ width, height });
       }
 
-      this.stage.on('mousemove touchmove', () => {
-        if (this.pinnedId) {
+      // Interação com mouse: desktop.
+      this.stage.on('mousemove', () => {
+        if (this.pinnedId || this.isTouching) {
           return;
         }
 
         const pointer = this.stage?.getPointerPosition();
 
-        if (pointer) {
-          this.pointerX = pointer.x;
-          this.pointerY = pointer.y;
+        if (!pointer) {
+          return;
         }
+
+        this.pointerX = pointer.x;
+        this.pointerY = pointer.y;
+      });
+
+      // Início do gesto de toque.
+
+      this.stage.on('touchstart', () => {
+        this.isTouching = true;
+        this.touchRegionId = null;
+
+        if (this.pinnedId !== null) {
+          this.pinnedId = null;
+          this.updatePolygonStyles();
+        }
+
+        this.updateTouchRegion();
+      });
+
+      // Movimento do dedo sobre a imagem.
+      this.stage.on('touchmove', () => {
+        this.updateTouchRegion();
+      });
+
+      // Fim do gesto: fixa a última região encontrada.
+      this.stage.on('touchend', () => {
+        const selectedId = this.touchRegionId;
+
+        this.isTouching = false;
+        this.touchRegionId = null;
+
+        if (selectedId) {
+          this.pinnedId = selectedId;
+          this.hoveredId = null;
+          this.updatePolygonStyles();
+        }
+      });
+
+      // Cancelamento do gesto pelo navegador ou sistema.
+      this.stage.on('touchcancel', () => {
+        this.isTouching = false;
+        this.touchRegionId = null;
+        this.hoveredId = null;
       });
 
       const layer = this.layer!;
@@ -251,7 +291,6 @@ export class AppComponent implements OnDestroy {
 
           if (this.pinnedId !== shape.label) {
             polygon.fill('rgba(59, 130, 246, 0.28)');
-
             polygon.stroke('rgba(255, 255, 255, 0.9)');
           }
 
@@ -263,14 +302,13 @@ export class AppComponent implements OnDestroy {
 
           if (this.pinnedId !== shape.label) {
             polygon.fill('rgba(59, 130, 246, 0.06)');
-
             polygon.stroke('rgba(255, 255, 255, 0.01)');
           }
 
           layer.batchDraw();
         });
 
-        polygon.on('click tap', () => {
+        polygon.on('click', () => {
           const pointer = this.stage?.getPointerPosition();
 
           if (pointer) {
@@ -295,6 +333,24 @@ export class AppComponent implements OnDestroy {
     this.resizeObserver.observe(host);
   }
 
+  private updateTouchRegion(): void {
+    const pointer = this.stage?.getPointerPosition();
+
+    if (!pointer || !this.stage) {
+      return;
+    }
+
+    this.pointerX = pointer.x;
+    this.pointerY = pointer.y;
+
+    const target = this.stage.getIntersection(pointer);
+
+    const regionId = target instanceof Konva.Line ? target.name() : null;
+
+    this.touchRegionId = regionId;
+    this.hoveredId = regionId;
+  }
+
   private updatePolygonStyles(): void {
     this.layer?.find('Line').forEach((node) => {
       const polygon = node as Konva.Line;
@@ -315,37 +371,6 @@ export class AppComponent implements OnDestroy {
   closeModal(): void {
     this.pinnedId = null;
     this.updatePolygonStyles();
-  }
-
-  pointerX = 0;
-  pointerY = 0;
-
-  get tooltipPosition(): { left: number; top: number } {
-    const stageWidth = this.stage?.width() ?? 0;
-    const stageHeight = this.stage?.height() ?? 0;
-
-    // Dimensões aproximadas do tooltip.
-    const tooltipWidth = Math.min(320, stageWidth - 16);
-    const tooltipHeight = 170;
-    const gap = 18;
-    const margin = 8;
-
-    let left = this.pointerX + gap;
-    let top = this.pointerY + gap;
-
-    // Evita ultrapassar as bordas da imagem.
-    if (left + tooltipWidth > stageWidth - margin) {
-      left = this.pointerX - tooltipWidth - gap;
-    }
-
-    if (top + tooltipHeight > stageHeight - margin) {
-      top = this.pointerY - tooltipHeight - gap;
-    }
-
-    return {
-      left: Math.max(margin, left),
-      top: Math.max(margin, top),
-    };
   }
 
   @HostListener('document:keydown.escape')

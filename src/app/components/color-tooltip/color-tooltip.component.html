@@ -1,0 +1,46 @@
+@if (content; as item) {
+  <section
+    class="color-tooltip"
+    [class.color-tooltip--pinned]="pinned"
+    [style.left.px]="left"
+    [style.top.px]="top"
+    [attr.role]="pinned ? 'dialog' : 'status'"
+    [attr.aria-label]="item.title"
+  >
+    <div class="color-tooltip__header">
+      <div class="color-tooltip__heading">
+        <span
+          class="color-tooltip__swatch"
+          [style.backgroundColor]="item.color || 'transparent'"
+          aria-hidden="true"
+        ></span>
+
+        <h2>{{ item.title }}</h2>
+      </div>
+
+      @if (pinned) {
+        <button
+          type="button"
+          class="color-tooltip__close"
+          aria-label="Fechar detalhes da cor"
+          (click)="close.emit()"
+        >
+          &times;
+        </button>
+      }
+    </div>
+
+    <p class="color-tooltip__description">
+      {{ item.description }}
+    </p>
+
+    <div class="color-tooltip__token">
+      <span class="color-tooltip__token-label">Token</span>
+      <code>{{ item.token }}</code>
+    </div>
+
+    @if (!pinned) {
+      <small class="color-tooltip__hint"> Clique para fixar </small>
+    }
+  </section>
+}

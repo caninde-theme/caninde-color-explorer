@@ -1,11 +1,8 @@
-<main class="explorer">
-  <header class="explorer-header">
-    <h1>Canindé Color Explorer</h1>
-    <p>Explore as cores que inspiram o tema.</p>
-  </header>
+<app-navbar />
 
+<main class="explorer">
   @if (loading) {
-    <p>Carregando imagem e regiões…</p>
+    <p class="status-message">Carregando imagem e regiões…</p>
   }
 
   @if (error) {
@@ -13,37 +10,52 @@
   }
 
   @if (!loading && !error) {
-    <section class="image-container">
+    <section id="explorer" class="image-container">
       <div #stageHost class="stage-host"></div>
 
       @if (activeShape && activeDetails) {
-        <article
-          class="info-modal"
-          [class.pinned]="pinnedId !== null"
-          [style.left.px]="tooltipPosition.left"
-          [style.top.px]="tooltipPosition.top"
-          [attr.role]="pinnedId ? 'dialog' : 'tooltip'"
-        >
-          @if (pinnedId) {
-            <button
-              class="modal-close"
-              type="button"
-              aria-label="Fechar detalhes"
-              (click)="closeModal()"
-            >
-              ×
-            </button>
-          }
-
-          <h2>{{ activeDetails.title }}</h2>
-          <p>{{ activeDetails.description }}</p>
-          <code>{{ activeDetails.token }}</code>
-
-          @if (!pinnedId) {
-            <small>Clique para fixar</small>
-          }
-        </article>
+        <app-color-tooltip
+          [content]="activeDetails"
+          [pinned]="pinnedId !== null"
+          [left]="tooltipPosition.left"
+          [top]="tooltipPosition.top"
+          (close)="closeModal()"
+        />
       }
     </section>
+
+    <footer id="photo-credit" class="photo-credit">
+      Foto de
+      <a
+        href="https://unsplash.com/pt-br/@davidclode?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        David Clode
+      </a>
+      na
+      <a
+        href="https://unsplash.com/pt-br/fotografias/um-par-de-passaros-coloridos-Mkv2aKWHx00?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Unsplash </a
+      >.
+    </footer>
   }
 </main>
+
+<div class="orientation-prompt" aria-live="polite">
+  <div class="orientation-prompt__content">
+    <div class="orientation-prompt__icon" aria-hidden="true">
+      <span>↻</span>
+    </div>
+
+    <h2>Gire seu dispositivo</h2>
+
+    <p>
+      Para explorar melhor os detalhes da imagem, utilize o aparelho na
+      horizontal.
+    </p>
+  </div>
+</div>
