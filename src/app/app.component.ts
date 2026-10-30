@@ -82,6 +82,18 @@ export class AppComponent implements OnDestroy {
     });
   }
 
+  explorationMode = false;
+
+  toggleExplorationMode(): void {
+    this.explorationMode = !this.explorationMode;
+
+    if (!this.explorationMode) {
+      this.isTouching = false;
+      this.touchRegionId = null;
+      this.hoveredId = null;
+    }
+  }
+
   constructor(private readonly colorDataService: ColorDataService) {
     void this.loadRegions();
   }
@@ -217,9 +229,14 @@ export class AppComponent implements OnDestroy {
       // Início do gesto de toque.
 
       this.stage.on('touchstart', () => {
+        if (!this.explorationMode) {
+          return;
+        }
+
         this.isTouching = true;
         this.touchRegionId = null;
 
+        // Inicia uma nova exploração.
         if (this.pinnedId !== null) {
           this.pinnedId = null;
           this.updatePolygonStyles();
@@ -228,26 +245,31 @@ export class AppComponent implements OnDestroy {
         this.updateTouchRegion();
       });
 
-      // Movimento do dedo sobre a imagem.
       this.stage.on('touchmove', () => {
+        if (!this.explorationMode || !this.isTouching) {
+          return;
+        }
+
         this.updateTouchRegion();
       });
 
-      // Fim do gesto: fixa a última região encontrada.
       this.stage.on('touchend', () => {
+        if (!this.explorationMode || !this.isTouching) {
+          return;
+        }
+
         const selectedId = this.touchRegionId;
 
         this.isTouching = false;
         this.touchRegionId = null;
+        this.hoveredId = null;
 
         if (selectedId) {
           this.pinnedId = selectedId;
-          this.hoveredId = null;
           this.updatePolygonStyles();
         }
       });
 
-      // Cancelamento do gesto pelo navegador ou sistema.
       this.stage.on('touchcancel', () => {
         this.isTouching = false;
         this.touchRegionId = null;
@@ -284,6 +306,7 @@ export class AppComponent implements OnDestroy {
           hitStrokeWidth: 8,
           name: shape.label,
           listening: true,
+          preventDefault: false,
         });
 
         polygon.on('mouseenter', () => {

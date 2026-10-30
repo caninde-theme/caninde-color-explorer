@@ -11,7 +11,25 @@
 
   @if (!loading && !error) {
     <section id="explorer" class="image-container">
-      <div #stageHost class="stage-host"></div>
+      <button
+        type="button"
+        class="exploration-toggle"
+        [class.exploration-toggle--active]="explorationMode"
+        [attr.aria-pressed]="explorationMode"
+        (click)="toggleExplorationMode()"
+      >
+        @if (explorationMode) {
+          <span>✓ Concluir exploração</span>
+        } @else {
+          <span>⌖ Explorar cores</span>
+        }
+      </button>
+
+      <div
+        #stageHost
+        class="stage-host"
+        [class.exploration-mode]="explorationMode"
+      ></div>
 
       @if (activeShape && activeDetails) {
         <app-color-tooltip
@@ -23,7 +41,6 @@
         />
       }
     </section>
-
     <footer id="photo-credit" class="photo-credit">
       Foto de
       <a

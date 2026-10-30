@@ -136,10 +136,50 @@
   }
 }
 
+.exploration-toggle {
+  display: none;
+}
+
 @media (hover: none) and (pointer: coarse) {
   .stage-host {
-    touch-action: none;
+    touch-action: auto;
     user-select: none;
     -webkit-user-select: none;
+  }
+
+  .stage-host.exploration-mode {
+    touch-action: none;
+  }
+
+  .exploration-toggle {
+    position: absolute;
+    z-index: 10;
+    top: 12px;
+    right: 12px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 40px;
+    padding: 0 14px;
+
+    border: 1px solid rgb(255 255 255 / 25%);
+    border-radius: 999px;
+
+    background: #053001;
+    color: #fff;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    box-shadow: 0 3px 12px rgb(0 0 0 / 25%);
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .exploration-toggle--active {
+    background: #fff;
+    color: #053001;
   }
 }
