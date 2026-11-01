@@ -1,0 +1,124 @@
+{
+    "regionContent": {
+        "white": "light",
+        "white-face": "light",
+        "pale-beak": "light",
+        "black": "dark",
+        "black-beak": "dark",
+        "black-stripes": "dark",
+        "yellow": "glow",
+        "yellow-wing": "glow",
+        "yellow-chest": "gold",
+        "gold": "gold",
+        "orange": "orange",
+        "orange-neck": "orange",
+        "blue": "blue",
+        "blue-back": "blue",
+        "blue-wing": "blue",
+        "light-blue": "sky",
+        "sky-sheen": "sky",
+        "green": "green",
+        "green-crown": "green",
+        "red": "red",
+        "red-head": "red",
+        "red-body": "red"
+    },
+    "contents": {
+        "blue": {
+            "title": "Azul do dorso (Blue Bell)",
+            "description": "O azul do dorso e das asas da arara-canindé, a cor da marca. No tema, pinta as palavras-chave, as tags e a barra de status.",
+            "token": "blue.base",
+            "color": "#039EF0",
+            "roles": [
+                "accent.primary",
+                "syntax.keyword",
+                "syntax.tag"
+            ]
+        },
+        "green": {
+            "title": "Verde da coroa (Yellow Green)",
+            "description": "O verde do alto da cabeça, onde a pena verde encontra o azul. No tema, pinta os tipos (classes, interfaces) e as mensagens de informação.",
+            "token": "green.base",
+            "color": "#7CCB04",
+            "roles": [
+                "syntax.type",
+                "status.info",
+                "ansi.cyan"
+            ]
+        },
+        "sky": {
+            "title": "Reflexo das asas (Sky Reflection)",
+            "description": "O azul-claro que a luz arranca das penas das asas. No tema, pinta as strings e sinaliza sucesso, como as linhas adicionadas no Git.",
+            "token": "sky.base",
+            "color": "#69B1CD",
+            "roles": [
+                "syntax.string",
+                "status.success"
+            ]
+        },
+        "gold": {
+            "title": "Dourado do peito (Goldenrod)",
+            "description": "O dourado do peito, a cor de destaque. No tema, pinta as funções e o cursor, que é onde o olhar fica enquanto você digita.",
+            "token": "gold.base",
+            "color": "#DFAB07",
+            "roles": [
+                "syntax.function",
+                "accent.secondary"
+            ]
+        },
+        "orange": {
+            "title": "Laranja do pescoço (Tiger Orange)",
+            "description": "A transição quente do pescoço, entre o peito e as asas. No tema, pinta números, constantes, parâmetros e avisos.",
+            "token": "orange.base",
+            "color": "#EE7B00",
+            "roles": [
+                "syntax.number",
+                "syntax.constant",
+                "syntax.parameter",
+                "status.warning"
+            ]
+        },
+        "red": {
+            "title": "Vermelho da arara-vermelha (Flag Red)",
+            "description": "O vermelho que visita o tema só para o que pede atenção: erros, código inválido e linhas removidas. No texto usamos um tom mais claro dele (red.500) para garantir a leitura sobre o fundo escuro.",
+            "token": "red.base",
+            "color": "#D41015",
+            "roles": [
+                "status.error",
+                "syntax.invalid",
+                "ansi.red"
+            ]
+        },
+        "glow": {
+            "title": "Faixa amarela das asas (Golden Glow)",
+            "description": "O amarelo vivo da faixa nas asas da arara-vermelha, também presente no ipê-amarelo. É um acento raro: decorators, escapes e expressões regulares.",
+            "token": "glow.base",
+            "color": "#DFCF00",
+            "roles": [
+                "syntax.decorator",
+                "syntax.escape",
+                "syntax.regexp",
+                "ansi.magenta"
+            ]
+        },
+        "light": {
+            "title": "Branco-pena",
+            "description": "A máscara branca do rosto, riscada de preto. No tema é o texto principal: um branco levemente azulado, com contraste de 15,7:1 sobre o fundo.",
+            "token": "neutral.100",
+            "color": "#E7EFFB",
+            "roles": [
+                "fg.default",
+                "syntax.variable"
+            ]
+        },
+        "dark": {
+            "title": "Preto-bico",
+            "description": "O preto do bico e das listras do rosto. No tema é o fundo do editor: um preto com leve tom de azul-pena, que deixa as cores da ave brilharem.",
+            "token": "neutral.900",
+            "color": "#11161E",
+            "roles": [
+                "bg.base"
+            ]
+        }
+    }
+}

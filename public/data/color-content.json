@@ -25,8 +25,8 @@
     },
     "contents": {
         "blue": {
-            "title": "Azul do dorso (Blue Bell)",
-            "description": "O azul do dorso e das asas da arara-canindé, a cor da marca. No tema, pinta as palavras-chave, as tags e a barra de status.",
+            "title": "Back Blue (Blue Bell)",
+            "description": "The blue of the back and wings of the blue-and-yellow macaw, the brand color. In the theme, it colors keywords, tags, and the status bar.",
             "token": "blue.base",
             "color": "#039EF0",
             "roles": [
@@ -36,8 +36,8 @@
             ]
         },
         "green": {
-            "title": "Verde da coroa (Yellow Green)",
-            "description": "O verde do alto da cabeça, onde a pena verde encontra o azul. No tema, pinta os tipos (classes, interfaces) e as mensagens de informação.",
+            "title": "Crown Green (Yellow Green)",
+            "description": "The green at the top of the head, where the green feather meets the blue. In the theme, it colors types (classes, interfaces) and informational messages.",
             "token": "green.base",
             "color": "#7CCB04",
             "roles": [
@@ -47,8 +47,8 @@
             ]
         },
         "sky": {
-            "title": "Reflexo das asas (Sky Reflection)",
-            "description": "O azul-claro que a luz arranca das penas das asas. No tema, pinta as strings e sinaliza sucesso, como as linhas adicionadas no Git.",
+            "title": "Wing Reflection (Sky Reflection)",
+            "description": "The light blue that light draws from the wing feathers. In the theme, it colors strings and signals success, like added lines in Git.",
             "token": "sky.base",
             "color": "#69B1CD",
             "roles": [
@@ -57,8 +57,8 @@
             ]
         },
         "gold": {
-            "title": "Dourado do peito (Goldenrod)",
-            "description": "O dourado do peito, a cor de destaque. No tema, pinta as funções e o cursor, que é onde o olhar fica enquanto você digita.",
+            "title": "Chest Gold (Goldenrod)",
+            "description": "The gold of the chest, the accent color. In the theme, it colors functions and the cursor, which is where your gaze rests while you type.",
             "token": "gold.base",
             "color": "#DFAB07",
             "roles": [
@@ -67,8 +67,8 @@
             ]
         },
         "orange": {
-            "title": "Laranja do pescoço (Tiger Orange)",
-            "description": "A transição quente do pescoço, entre o peito e as asas. No tema, pinta números, constantes, parâmetros e avisos.",
+            "title": "Neck Orange (Tiger Orange)",
+            "description": "The warm transition of the neck, between the chest and the wings. In the theme, it colors numbers, constants, parameters, and warnings.",
             "token": "orange.base",
             "color": "#EE7B00",
             "roles": [
@@ -79,8 +79,8 @@
             ]
         },
         "red": {
-            "title": "Vermelho da arara-vermelha (Flag Red)",
-            "description": "O vermelho que visita o tema só para o que pede atenção: erros, código inválido e linhas removidas. No texto usamos um tom mais claro dele (red.500) para garantir a leitura sobre o fundo escuro.",
+            "title": "Scarlet Macaw Red (Flag Red)",
+            "description": "The red that visits the theme only for what demands attention: errors, invalid code, and removed lines. In text we use a lighter shade of it (red.500) to ensure readability against the dark background.",
             "token": "red.base",
             "color": "#D41015",
             "roles": [
@@ -90,8 +90,8 @@
             ]
         },
         "glow": {
-            "title": "Faixa amarela das asas (Golden Glow)",
-            "description": "O amarelo vivo da faixa nas asas da arara-vermelha, também presente no ipê-amarelo. É um acento raro: decorators, escapes e expressões regulares.",
+            "title": "Yellow Wing Band (Golden Glow)",
+            "description": "The vivid yellow of the band on the scarlet macaw's wings, also found in the golden trumpet tree. It is a rare accent: decorators, escapes, and regular expressions.",
             "token": "glow.base",
             "color": "#DFCF00",
             "roles": [
@@ -102,8 +102,8 @@
             ]
         },
         "light": {
-            "title": "Branco-pena",
-            "description": "A máscara branca do rosto, riscada de preto. No tema é o texto principal: um branco levemente azulado, com contraste de 15,7:1 sobre o fundo.",
+            "title": "Feather White",
+            "description": "The white facial mask, streaked with black. In the theme it is the main text: a slightly bluish white, with a contrast ratio of 15.7:1 against the background.",
             "token": "neutral.100",
             "color": "#E7EFFB",
             "roles": [
@@ -112,8 +112,8 @@
             ]
         },
         "dark": {
-            "title": "Preto-bico",
-            "description": "O preto do bico e das listras do rosto. No tema é o fundo do editor: um preto com leve tom de azul-pena, que deixa as cores da ave brilharem.",
+            "title": "Beak Black",
+            "description": "The black of the beak and the facial stripes. In the theme it is the editor background: a black with a slight feather-blue tint, which lets the bird's colors shine.",
             "token": "neutral.900",
             "color": "#11161E",
             "roles": [
