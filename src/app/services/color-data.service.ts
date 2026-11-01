@@ -4,7 +4,8 @@ export interface ColorContent {
   title: string;
   description: string;
   token: string;
-  color?: string;
+  color: string;
+  roles: string[];
 }
 
 interface ColorContentFile {

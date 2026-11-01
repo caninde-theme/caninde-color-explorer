@@ -1,46 +1,51 @@
-@if (content; as item) {
-  <section
-    class="color-tooltip"
-    [class.color-tooltip--pinned]="pinned"
-    [style.left.px]="left"
-    [style.top.px]="top"
-    [attr.role]="pinned ? 'dialog' : 'status'"
-    [attr.aria-label]="item.title"
-  >
-    <div class="color-tooltip__header">
-      <div class="color-tooltip__heading">
-        <span
-          class="color-tooltip__swatch"
-          [style.backgroundColor]="item.color || 'transparent'"
-          aria-hidden="true"
-        ></span>
+<div
+  class="color-tooltip"
+  [class.color-tooltip--pinned]="pinned"
+  [style.left.px]="left"
+  [style.top.px]="top"
+  role="status"
+>
+  <div class="color-tooltip__header">
+    <div
+      class="color-tooltip__swatch"
+      [style.background-color]="content.color"
+      [attr.aria-label]="'Color: ' + content.color"
+    ></div>
 
-        <h2>{{ item.title }}</h2>
-      </div>
+    <div class="color-tooltip__heading">
+      <h3>{{ content.title }}</h3>
+      <span class="color-tooltip__token">{{ content.token }}</span>
+    </div>
 
-      @if (pinned) {
-        <button
-          type="button"
-          class="color-tooltip__close"
-          aria-label="Fechar detalhes da cor"
-          (click)="close.emit()"
-        >
-          &times;
-        </button>
+    @if (pinned) {
+      <button
+        type="button"
+        class="color-tooltip__close"
+        aria-label="Close color details"
+        (click)="onClose()"
+      >
+        ×
+      </button>
+    }
+  </div>
+
+  <p class="color-tooltip__description">
+    {{ content.description }}
+  </p>
+
+  <div class="color-tooltip__roles">
+    <span class="color-tooltip__roles-label">Used for</span>
+
+    <div class="color-tooltip__role-list">
+      @for (role of content.roles; track role) {
+        <span class="color-tooltip__role">
+          {{ role }}
+        </span>
       }
     </div>
+  </div>
 
-    <p class="color-tooltip__description">
-      {{ item.description }}
-    </p>
-
-    <div class="color-tooltip__token">
-      <span class="color-tooltip__token-label">Token</span>
-      <code>{{ item.token }}</code>
-    </div>
-
-    @if (!pinned) {
-      <small class="color-tooltip__hint"> Clique para fixar </small>
-    }
-  </section>
-}
+  @if (!pinned) {
+    <span class="color-tooltip__hint"> Click to pin details </span>
+  }
+</div>
