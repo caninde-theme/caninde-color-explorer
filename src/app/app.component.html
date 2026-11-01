@@ -25,6 +25,39 @@
         }
       </button>
 
+      @if (showOrientationPrompt) {
+        <div
+          class="orientation-dialog"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="orientation-title"
+          aria-describedby="orientation-description"
+        >
+          <div class="orientation-dialog__content">
+            <div class="orientation-dialog__icon" aria-hidden="true">↻</div>
+
+            <h2 id="orientation-title">Rotate your device</h2>
+
+            <p id="orientation-description">
+              For the best color exploration experience, rotate your device to
+              landscape.
+            </p>
+
+            <button
+              type="button"
+              class="orientation-dialog__primary"
+              (click)="cancelOrientationPrompt()"
+            >
+              @if (isMobilePortrait()) {
+                Stay in portrait
+              } @else {
+                Start exploring
+              }
+            </button>
+          </div>
+        </div>
+      }
+
       <div
         #stageHost
         class="stage-host"
@@ -41,6 +74,26 @@
         />
       }
     </section>
+    <div class="photo-credit">
+      <p>
+        Photography:
+        <a
+          href="https://unsplash.com/pt-br/@davidclode?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          David Clode
+        </a>
+        /
+        <a
+          href="https://unsplash.com/pt-br/fotografias/um-par-de-passaros-coloridos-Mkv2aKWHx00?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Unsplash
+        </a>
+      </p>
+    </div>
   }
 
   <app-about id="about" />
@@ -49,18 +102,3 @@
 </main>
 
 <app-footer />
-
-<div class="orientation-prompt" aria-live="polite">
-  <div class="orientation-prompt__content">
-    <div class="orientation-prompt__icon" aria-hidden="true">
-      <span>↻</span>
-    </div>
-
-    <h2>Rotate your device</h2>
-
-    <p>
-      To explore the image details better, use your device in landscape
-      orientation.
-    </p>
-  </div>
-</div>

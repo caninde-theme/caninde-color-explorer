@@ -11,7 +11,7 @@
   "shapes": [
     {
       "id": "shape_ekq9zs",
-      "label": "bico_white",
+      "label": "white",
       "type": "polygon",
       "color": "#d4ff00",
       "closed": true,
@@ -308,7 +308,7 @@
     },
     {
       "id": "shape_zcqzet",
-      "label": "bico_black",
+      "label": "black",
       "type": "polygon",
       "color": "#00d4ff",
       "closed": true,
@@ -841,7 +841,7 @@
     },
     {
       "id": "shape_owtkz5",
-      "label": "asa_amarela",
+      "label": "yellow",
       "type": "polygon",
       "color": "#ff4d8d",
       "closed": true,

@@ -70,8 +70,18 @@ export class AppComponent implements OnDestroy {
   pointerX = 0;
   pointerY = 0;
 
+  explorationMode = false;
+  showOrientationPrompt = false;
+
   private isTouching = false;
   private touchRegionId: string | null = null;
+
+  // @HostListener('window:orientationchange')
+  // onOrientationChange(): void {
+  //   if (this.showOrientationPrompt && !this.isMobilePortrait()) {
+  //     this.startExploration();
+  //   }
+  // }
 
   @ViewChild('stageHost')
   set stageHostRef(ref: ElementRef<HTMLDivElement> | undefined) {
@@ -91,15 +101,59 @@ export class AppComponent implements OnDestroy {
     });
   }
 
-  explorationMode = false;
+  isMobilePortrait(): boolean {
+    return window.matchMedia(
+      '(hover: none) and (pointer: coarse) and (orientation: portrait)',
+    ).matches;
+  }
 
   toggleExplorationMode(): void {
-    this.explorationMode = !this.explorationMode;
+    if (this.explorationMode) {
+      this.finishExploration();
+      return;
+    }
 
-    if (!this.explorationMode) {
-      this.isTouching = false;
-      this.touchRegionId = null;
-      this.hoveredId = null;
+    if (this.isMobilePortrait()) {
+      this.showOrientationPrompt = true;
+      return;
+    }
+
+    this.startExploration();
+  }
+
+  private startExploration(): void {
+    this.showOrientationPrompt = false;
+    this.explorationMode = true;
+  }
+
+  cancelOrientationPrompt(): void {
+    if (!this.isMobilePortrait()) {
+      // Se estiver em paisagem, o botão ativa a exploração.
+      this.startExploration();
+      return;
+    }
+
+    // Em retrato, fecha o diálogo sem ativar a exploração.
+    this.showOrientationPrompt = false;
+  }
+
+  finishExploration(): void {
+    this.explorationMode = false;
+    this.showOrientationPrompt = false;
+
+    this.isTouching = false;
+    this.touchRegionId = null;
+    this.hoveredId = null;
+    this.pinnedId = null;
+
+    this.updatePolygonStyles();
+  }
+
+  @HostListener('window:orientationchange')
+  @HostListener('window:resize')
+  onViewportChange(): void {
+    if (this.showOrientationPrompt && !this.isMobilePortrait()) {
+      this.startExploration();
     }
   }
 

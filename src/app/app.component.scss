@@ -50,10 +50,15 @@
 }
 
 .photo-credit {
-  padding: 14px 16px 24px;
+  padding: 2px 16px 24px;
   color: #888;
   font-size: 0.78rem;
   text-align: center;
+  background: #f7f8f5;
+}
+
+.photo-credit p {
+  margin: 0;
 }
 
 .photo-credit a {
@@ -66,75 +71,6 @@
   color: #333;
 }
 
-/* Solicitação de orientação horizontal em celulares */
-
-.orientation-prompt {
-  display: none;
-}
-
-@media (max-width: 767px) and (orientation: portrait) {
-  .orientation-prompt {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    display: grid;
-    place-items: center;
-    padding: 24px;
-    background: #053001;
-    color: #fff;
-    text-align: center;
-  }
-
-  .orientation-prompt__content {
-    max-width: 320px;
-  }
-
-  .orientation-prompt__icon {
-    position: relative;
-    display: grid;
-    place-items: center;
-    width: 76px;
-    height: 76px;
-    margin: 0 auto 28px;
-    border: 2px solid #aaa;
-    border-radius: 12px;
-    transform: rotate(0deg);
-  }
-
-  .orientation-prompt__icon::before {
-    content: '';
-    position: absolute;
-    inset: 8px;
-    border: 1px solid #777;
-    border-radius: 4px;
-  }
-
-  .orientation-prompt__icon span {
-    position: absolute;
-    right: -15px;
-    bottom: -12px;
-    display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: #171717;
-    color: #fff;
-    font-size: 1.5rem;
-  }
-
-  .orientation-prompt h2 {
-    margin: 0 0 12px;
-    font-size: 1.5rem;
-  }
-
-  .orientation-prompt p {
-    margin: 0;
-    color: #bbb;
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-}
 
 .exploration-toggle {
   display: none;
@@ -183,3 +119,81 @@
     color: #053001;
   }
 }
+
+.orientation-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: grid;
+  place-items: center;
+
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  padding: 1rem;
+  padding-top: max(1rem, env(safe-area-inset-top));
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+
+  background: rgb(0 0 0 / 75%);
+  backdrop-filter: blur(5px);
+}
+
+.orientation-dialog__content {
+  box-sizing: border-box;
+  width: min(100%, 360px);
+
+  padding: 1.5rem;
+  border-radius: 18px;
+
+  background: #fff;
+  color: #202820;
+  text-align: center;
+
+  box-shadow: 0 15px 50px rgb(0 0 0 / 25%);
+}
+
+.orientation-dialog__icon {
+  font-size: 2rem;
+  color: #477b3b;
+}
+
+.orientation-dialog__content h2 {
+  margin: 0.5rem 0;
+  font-size: 1.3rem;
+}
+
+.orientation-dialog__content p {
+  margin: 0.5rem 0 1rem;
+  color: #657064;
+  line-height: 1.5;
+}
+
+.orientation-dialog__primary {
+  width: 100%;
+  min-height: 48px;
+
+  border: 0;
+  border-radius: 8px;
+
+  background: #053001;
+  color: #fff;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.orientation-dialog__primary:focus-visible {
+  outline: 3px solid #477b3b;
+  outline-offset: 3px;
+}
+
+// .orientation-dialog__hint {
+//   margin-bottom: 0;
+//   font-size: 0.8rem;
+// }
+
